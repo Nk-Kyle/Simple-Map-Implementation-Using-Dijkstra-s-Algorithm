@@ -107,17 +107,16 @@ class clickEvent:
     def getDestination(self):
         return self.destination
 
-def getMat():
+def getMat(filepath):
     mat = []
     # Read input
-    with open('input/test.txt', 'r') as f:
+    with open(filepath, 'r') as f:
         lines = f.readlines()
         for i in range (len(lines)):
             mat += [list(map(int, lines[i].split()))]
     return mat
 
-def getGraph():
-    mat = getMat()
+def getGraph(mat):
     # Create Nodes
     g = nx.DiGraph()
     print(mat)

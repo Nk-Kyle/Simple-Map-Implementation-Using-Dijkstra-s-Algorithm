@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import (
 # Implement the default Matplotlib key bindings.
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
-
+from tkinter import filedialog as fd
 import numpy as np
 
 def on_key_press(event):
@@ -25,13 +25,19 @@ def calcDist():
     if (ce.getSource() is None or ce.getDestination() is None):
         tkinter.messagebox.showinfo('Error', 'Source and Destination must be selected')
     else:
-        resultvar.set(djikstra(getMat(), ce.getSource(), ce.getDestination()))
-
+        resultvar.set(djikstra(mat, ce.getSource(), ce.getDestination()))
+while True:
+    try:      
+        filename = fd.askopenfilename()
+        mat = getMat(filename)
+        break
+    except:
+        tkinter.messagebox.showinfo('Error', 'File not found')
 
 mode = 'Source'
 root = tkinter.Tk()
 root.wm_title("Embedding in Tk")
-g = getGraph()
+g = getGraph(mat)
 pos = nx.spring_layout(g)
 weights = nx.get_edge_attributes(g, 'weight')
 
