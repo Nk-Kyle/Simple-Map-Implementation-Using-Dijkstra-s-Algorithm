@@ -15,6 +15,7 @@ def get_route(prev, i, route):
         route.append(i)
 
 def djikstra(mat, source, target):
+    it = 0
     dist = [inf for i in range(len(mat))]
     prev = [-1 for i in range(len(mat))]
     done = [False for i in range(len(mat))]
@@ -27,6 +28,7 @@ def djikstra(mat, source, target):
     while q:
         u = heappop(q)[1]
         for v in range(len(mat)):
+            it += 1
             if (mat[u][v] != -1 and done[v] == False):
                 alt = dist[u] + mat[u][v]
                 if alt < dist[v]:
@@ -37,4 +39,12 @@ def djikstra(mat, source, target):
     print(dist)
     route = []
     get_route(prev, target, route)
-    print(f'Path ({source} —> {i}): Minimum cost = {dist[target]}, Route = {route}')
+    res = ''
+    if dist[route[i]] == inf:
+        res = 'No route' 
+    else:
+        for i in range(len(route)):
+            res += str(source) + ' —> ' + str(route[i]) + ': Minimum cost = ' + str(dist[route[i]]) + ', Route: ' + route[:i+1].__str__() + '\n'
+    res += '\niterations = ' + str(it)
+    return res
+    # print(f'Path ({source} —> {i}): Minimum cost = {dist[target]}, Route = {route}')
