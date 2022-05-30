@@ -40,7 +40,7 @@ def djikstra(mat, source, target):
     route = []
     get_route(prev, target, route)
     res = ''
-    if dist[route[i]] == inf:
+    if dist[route[0]] == inf:
         res = 'No route' 
     else:
         for i in range(len(route)):
